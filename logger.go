@@ -11,6 +11,8 @@ const (
 	LOG_LEVEL_WARN
 	LOG_LEVEL_INFO
 	LOG_LEVEL_DEBUG
+	LOG_LEVEL_TRACE
+	LOG_LEVEL_ALL
 )
 
 type Logger struct {
@@ -52,6 +54,12 @@ func (l *Logger) Info(format string, v ...interface{}) {
 func (l *Logger) Debug(format string, v ...interface{}) {
 	if l.level >= LOG_LEVEL_DEBUG {
 		l.Log("[debug]", format, v...)
+	}
+}
+
+func (l *Logger) Trace(format string, v ...interface{}) {
+	if l.level >= LOG_LEVEL_TRACE {
+		l.Log("[trace]", format, v...)
 	}
 }
 
