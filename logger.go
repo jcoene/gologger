@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	"time"
 )
 
 const (
@@ -64,11 +65,12 @@ func (l *Logger) Trace(format string, v ...interface{}) {
 }
 
 func (l *Logger) Log(level string, format string, v ...interface{}) {
+	tim := time.Now().Format("2006-01-02 15:04:05.000000")
 	out := fmt.Sprintf(fmt.Sprintf("%s\n", format), v...)
 
 	if l.prefix != "" {
-		fmt.Printf("%s (%s) %s", level, l.prefix, out)
+		fmt.Printf("[%s] %s (%s) %s", tim, level, l.prefix, out)
 	} else {
-		fmt.Printf("%s %s", level, out)
+		fmt.Printf("[%s] %s %s", tim, level, out)
 	}
 }
