@@ -2,6 +2,7 @@ package logger
 
 import (
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -41,6 +42,7 @@ func (l *Logger) Fatal(format string, v ...interface{}) {
 	if l.level >= LOG_LEVEL_FATAL {
 		l.Log("[fatal]", format, v...)
 	}
+	os.Exit(1)
 }
 
 func (l *Logger) Error(format string, v ...interface{}) {
