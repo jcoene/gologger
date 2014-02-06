@@ -16,6 +16,8 @@ const (
 	LOG_LEVEL_ALL
 )
 
+var DefaultLevel int = LOG_LEVEL_INFO
+
 type Logger struct {
 	level  int
 	prefix string
@@ -24,6 +26,13 @@ type Logger struct {
 func NewLogger(level int, prefix string) *Logger {
 	return &Logger{
 		level:  level,
+		prefix: prefix,
+	}
+}
+
+func NewDefaultLogger(prefix string) *Logger {
+	return &Logger{
+		level:  DefaultLevel,
 		prefix: prefix,
 	}
 }
