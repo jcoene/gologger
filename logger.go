@@ -24,6 +24,31 @@ type Logger struct {
 	prefix string
 }
 
+func init() {
+	if os.Getenv("DEBUG") != "" {
+		DefaultLevel = LOG_LEVEL_DEBUG
+	}
+
+	switch os.Getenv("LOG_LEVEL") {
+	case "OFF":
+		DefaultLevel = LOG_LEVEL_OFF
+	case "FATAL":
+		DefaultLevel = LOG_LEVEL_FATAL
+	case "ERROR":
+		DefaultLevel = LOG_LEVEL_ERROR
+	case "WARN":
+		DefaultLevel = LOG_LEVEL_WARN
+	case "INFO":
+		DefaultLevel = LOG_LEVEL_INFO
+	case "DEBUG":
+		DefaultLevel = LOG_LEVEL_DEBUG
+	case "TRACE":
+		DefaultLevel = LOG_LEVEL_TRACE
+	case "ALL":
+		DefaultLevel = LOG_LEVEL_ALL
+	}
+}
+
 func NewLogger(level int, prefix string) *Logger {
 	return &Logger{
 		level:  level,
@@ -35,6 +60,12 @@ func NewDefaultLogger(prefix string) *Logger {
 	return &Logger{
 		level:  DefaultLevel,
 		prefix: prefix,
+	}
+}
+
+func (l *Logger) SetLevel(level int) {
+	if level >= LOG_LEVEL_OFF && level <= LOG_LEVEL_ALL {
+		l.level = level
 	}
 }
 
